@@ -1,0 +1,439 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>MidTermTwo</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-10"><meta name="DC.source" content="MidTermTwo.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">MUX</a></li><li><a href="#3">DMUX</a></li><li><a href="#4">Parallel to Series Optimum   O(n)</a></li><li><a href="#5">Series to Parallel Optimum   O(n)</a></li></ul></div><pre class="codeinput"><span class="comment">%----------------------------------------------------------------------%</span>
+<span class="comment">%%-------------- Lab Mid-Term 2 Digital Communication ------------------%%</span>
+ <span class="comment">%--------------- Supervisor: Dr.Shirvani Moghaddam ---------------%</span>
+  <span class="comment">%------- Source by Mohammad Reza Farhadi Nia ----- Date:Nov 2020 --%</span>
+<span class="comment">%----------------------------------------------------------------------%</span>
+</pre><h2 id="2">MUX</h2><p>Inputs : 8 bit frames</p><pre class="codeinput">Tail0 = 0*(1:64) + 1;
+cha1in  = randi([0 1],1,64);
+cha2in  = randi([0 1],1,64);
+cha3in  = randi([0 1],1,64);
+cha4in  = randi([0 1],1,64);
+cha5in  = randi([0 1],1,64);
+cha6in  = randi([0 1],1,64);
+
+Parity = xor(xor(xor(xor(xor(cha1in,cha2in),cha3in),cha4in),cha5in),cha6in);
+
+Parallel_input = [Tail0; cha1in; cha2in; cha3in; cha4in; cha5in; cha6in; Parity];
+
+Sereies = Par2SerOpt(Parallel_input, 8, 64)
+</pre><h2 id="3">DMUX</h2><p>Output</p><pre class="codeinput">Prallel_output = Ser2ParOpt(Sereies, 8)
+
+cha1out  = Prallel_output(2,:);
+cha2out  = Prallel_output(3,:);
+cha3out  = Prallel_output(4,:);
+cha4out  = Prallel_output(5,:);
+cha5out  = Prallel_output(6,:);
+cha6out  = Prallel_output(7,:);
+cha7out  = Prallel_output(8,:);
+
+erorr = Parallel_input - Prallel_output;
+erorr1 = cha1out - cha1in;
+
+figure
+
+subplot(8,1,1);stairs([-length(cha1in)/2+1/2:length(cha1in)/2-1/2],cha1in);
+axis([-length(cha1in)/2 length(cha1in)/2 -2 2]);title(<span class="string">'Channe 1 Input = Channe 1 Output'</span>);grid <span class="string">on</span>;
+
+subplot(8,1,2);stairs([-length(cha2out)/2+1/2:length(cha2out)/2-1/2],cha2out);
+axis([-length(cha2out)/2 length(cha2out)/2 -2 2]);title(<span class="string">'Channe 2 Input = Channe 2 Output'</span>);grid <span class="string">on</span>;
+
+subplot(8,1,3);stairs([-length(cha3in)/2+1/2:length(cha3in)/2-1/2],cha3in);
+axis([-length(cha3in)/2 length(cha3in)/2 -2 2]);title(<span class="string">'Channe 3 Input = Channe 3 Output'</span>);grid <span class="string">on</span>;
+
+subplot(8,1,4);stairs([-length(cha4out)/2+1/2:length(cha4out)/2-1/2],cha4out);
+axis([-length(cha4out)/2 length(cha4out)/2 -2 2]);title(<span class="string">'Channe 4 Input = Channe 4 Output'</span>);grid <span class="string">on</span>;
+
+subplot(8,1,5);stairs([-length(cha5out)/2+1/2:length(cha5out)/2-1/2],cha5out);
+axis([-length(cha5out)/2 length(Parity)/2 -2 2]);title(<span class="string">'ParityChanne 5 Input = Channe 5 Output'</span>);grid <span class="string">on</span>;
+
+subplot(8,1,6);stairs([-length(cha6out)/2+1/2:length(cha6out)/2-1/2],cha6out);
+axis([-length(cha6out)/2 length(cha6out)/2 -2 2]);title(<span class="string">'Channe 6 Input = Channe 6 Output'</span>);grid <span class="string">on</span>;
+
+subplot(8,1,7);stairs([-length(cha7out)/2+1/2:length(cha7out)/2-1/2],cha7out);
+axis([-length(cha7out)/2 length(cha7out)/2 -2 2]);title(<span class="string">'Parity'</span>);grid <span class="string">on</span>;
+
+subplot(8,1,8);stairs([-length(Sereies)/2+1/2:length(Sereies)/2-1/2],Sereies);
+axis([-length(Sereies)/2 length(Sereies)/2 -2 2]);title(<span class="string">'Sereies Carrier'</span>);grid <span class="string">on</span>;
+</pre><h2 id="4">Parallel to Series Optimum   O(n)</h2><pre class="codeinput"><span class="keyword">function</span> Output = Par2SerOpt(Input, row_len, column_len)
+    <span class="keyword">for</span> column = 1:column_len
+        Output(1, (column-1)*row_len+1:column*row_len) = Input(1:row_len, column);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+Sereies =
+
+  Columns 1 through 13
+
+     1     1     0     0     1     1     1     0     1     1     0     1     1
+
+  Columns 14 through 26
+
+     0     1     0     1     0     1     0     0     0     0     1     1     1
+
+  Columns 27 through 39
+
+     1     0     1     1     0     0     1     0     0     0     1     0     1
+
+  Columns 40 through 52
+
+     0     1     0     1     1     1     1     1     1     1     0     0     0
+
+  Columns 53 through 65
+
+     1     1     0     0     1     1     1     1     0     1     1     1     1
+
+  Columns 66 through 78
+
+     1     1     0     1     1     1     1     1     0     1     0     0     0
+
+  Columns 79 through 91
+
+     0     1     1     0     0     0     1     0     1     0     1     1     1
+
+  Columns 92 through 104
+
+     1     1     0     0     0     1     0     0     1     1     0     0     0
+
+  Columns 105 through 117
+
+     1     1     0     0     1     1     1     0     1     1     1     1     1
+
+  Columns 118 through 130
+
+     1     1     0     1     0     1     1     1     0     0     1     1     0
+
+  Columns 131 through 143
+
+     0     1     0     0     1     0     1     1     1     1     0     1     0
+
+  Columns 144 through 156
+
+     0     1     1     1     1     0     0     0     1     1     1     0     0
+
+  Columns 157 through 169
+
+     0     0     0     1     1     0     1     0     0     1     0     0     1
+
+  Columns 170 through 182
+
+     1     0     0     0     0     0     1     1     0     0     0     0     1
+
+  Columns 183 through 195
+
+     0     1     1     1     0     1     1     0     0     1     1     1     1
+
+  Columns 196 through 208
+
+     0     1     0     0     1     1     0     0     0     0     1     0     1
+
+  Columns 209 through 221
+
+     1     0     0     0     0     1     1     0     1     1     1     1     1
+
+  Columns 222 through 234
+
+     1     0     1     1     0     0     0     0     1     1     0     1     0
+
+  Columns 235 through 247
+
+     1     0     0     0     0     1     1     1     1     1     1     0     0
+
+  Columns 248 through 260
+
+     0     1     0     1     1     1     1     0     0     1     1     1     0
+
+  Columns 261 through 273
+
+     0     0     0     0     1     1     0     0     1     1     1     0     1
+
+  Columns 274 through 286
+
+     1     0     0     1     1     0     1     1     1     1     1     0     0
+
+  Columns 287 through 299
+
+     1     0     1     1     1     0     0     1     1     0     1     0     0
+
+  Columns 300 through 312
+
+     1     1     0     1     1     1     1     1     0     0     1     1     0
+
+  Columns 313 through 325
+
+     1     0     1     1     0     1     1     0     1     1     1     1     0
+
+  Columns 326 through 338
+
+     0     1     0     1     1     1     0     1     1     1     1     1     1
+
+  Columns 339 through 351
+
+     1     1     1     1     1     0     1     0     1     0     0     0     0
+
+  Columns 352 through 364
+
+     1     1     0     0     1     0     1     0     0     1     1     0     1
+
+  Columns 365 through 377
+
+     1     1     1     1     1     1     1     0     0     1     1     0     1
+
+  Columns 378 through 390
+
+     1     0     0     1     1     0     1     1     1     1     1     0     0
+
+  Columns 391 through 403
+
+     1     0     1     0     0     1     0     0     0     1     1     0     1
+
+  Columns 404 through 416
+
+     0     0     1     0     0     1     0     0     0     0     0     0     0
+
+  Columns 417 through 429
+
+     1     0     0     1     0     1     0     0     1     0     1     0     0
+
+  Columns 430 through 442
+
+     1     0     0     1     0     0     1     1     1     0     1     1     1
+
+  Columns 443 through 455
+
+     1     1     0     0     0     1     1     0     1     0     1     0     1
+
+  Columns 456 through 468
+
+     1     1     0     0     1     1     1     1     0     1     0     0     1
+
+  Columns 469 through 481
+
+     1     0     1     1     1     0     1     1     1     1     0     0     1
+
+  Columns 482 through 494
+
+     0     0     0     0     0     0     0     1     1     0     0     0     1
+
+  Columns 495 through 507
+
+     1     1     1     0     0     1     1     0     1     1     1     0     0
+
+  Columns 508 through 512
+
+     1     1     1     1     0
+
+</pre><h2 id="5">Series to Parallel Optimum   O(n)</h2><pre class="codeinput"><span class="keyword">function</span> Output = Ser2ParOpt(Input, out_len)
+    <span class="keyword">for</span> row = 1:ceil(length(Input)/out_len)
+        Output(1:out_len, row) = Input(1, (row-1)*out_len+1:row*out_len);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+Prallel_output =
+
+  Columns 1 through 13
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+     1     1     0     1     0     0     0     1     1     0     0     1     0
+     0     0     1     1     0     1     0     1     1     1     0     1     0
+     0     1     0     0     0     1     0     1     0     0     0     1     1
+     1     1     0     1     1     1     1     0     1     0     1     1     1
+     1     0     0     1     0     1     1     1     1     0     0     0     0
+     1     1     0     0     1     1     0     1     1     0     1     0     0
+     0     0     1     0     0     1     0     1     1     1     0     0     0
+
+  Columns 14 through 26
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+     1     1     0     0     1     1     1     0     1     0     1     1     0
+     0     1     1     0     1     1     0     1     0     0     0     1     0
+     0     1     1     1     1     1     0     0     0     0     1     0     0
+     1     1     1     0     0     0     0     0     0     0     1     1     0
+     1     1     0     0     1     0     0     1     0     1     0     0     1
+     1     1     0     1     0     0     0     0     0     0     0     0     0
+     0     0     1     0     0     1     1     0     1     1     1     1     1
+
+  Columns 27 through 39
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+     0     1     0     0     1     0     1     1     1     1     1     0     1
+     0     1     0     1     1     1     1     0     0     1     1     0     1
+     0     1     0     0     1     1     0     0     0     1     0     1     0
+     0     1     0     0     1     1     0     1     1     0     0     1     0
+     1     1     1     0     0     1     0     1     1     0     1     0     1
+     1     0     1     0     0     0     0     1     0     1     1     1     1
+     0     1     0     1     0     0     0     0     1     0     0     1     0
+
+  Columns 40 through 52
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+     0     1     1     1     0     0     1     1     1     1     0     0     0
+     1     1     1     1     1     0     0     1     0     1     0     1     0
+     1     1     0     1     0     1     1     0     0     1     1     0     0
+     0     0     1     1     0     0     1     0     1     0     0     0     0
+     1     0     1     1     0     1     1     1     1     0     0     1     0
+     1     1     1     1     0     0     1     1     0     1     0     0     0
+     0     0     1     0     1     0     1     0     1     0     1     0     0
+
+  Columns 53 through 64
+
+     1     1     1     1     1     1     1     1     1     1     1     1
+     0     0     0     1     0     0     0     0     0     1     0     0
+     0     1     0     1     1     0     0     1     0     0     0     0
+     1     0     1     1     0     1     1     1     0     0     1     1
+     0     0     1     0     1     1     1     1     0     0     1     1
+     1     1     1     0     0     1     0     1     0     1     0     1
+     0     0     0     0     1     1     1     0     0     1     1     1
+     0     0     1     1     1     0     1     0     0     1     1     0
+
+</pre><img vspace="5" hspace="5" src="MidTermTwo_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%
+%%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH Lab Mid-Term 2 Digital Communication REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%%
+ %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Supervisor: Dr.Shirvani Moghaddam REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-%
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Source by Mohammad Reza Farhadi Nia REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Date:Nov 2020 REPLACE_WITH_DASH_DASH%
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%
+
+%% MUX
+% Inputs : 8 bit frames
+
+Tail0 = 0*(1:64) + 1;
+cha1in  = randi([0 1],1,64);
+cha2in  = randi([0 1],1,64);
+cha3in  = randi([0 1],1,64);
+cha4in  = randi([0 1],1,64);
+cha5in  = randi([0 1],1,64);
+cha6in  = randi([0 1],1,64);
+
+Parity = xor(xor(xor(xor(xor(cha1in,cha2in),cha3in),cha4in),cha5in),cha6in);
+
+Parallel_input = [Tail0; cha1in; cha2in; cha3in; cha4in; cha5in; cha6in; Parity];
+
+Sereies = Par2SerOpt(Parallel_input, 8, 64)
+
+%% DMUX
+% Output
+
+Prallel_output = Ser2ParOpt(Sereies, 8)
+
+cha1out  = Prallel_output(2,:);
+cha2out  = Prallel_output(3,:);
+cha3out  = Prallel_output(4,:);
+cha4out  = Prallel_output(5,:);
+cha5out  = Prallel_output(6,:);
+cha6out  = Prallel_output(7,:);
+cha7out  = Prallel_output(8,:);
+
+erorr = Parallel_input - Prallel_output;
+erorr1 = cha1out - cha1in; 
+
+figure
+
+subplot(8,1,1);stairs([-length(cha1in)/2+1/2:length(cha1in)/2-1/2],cha1in);
+axis([-length(cha1in)/2 length(cha1in)/2 -2 2]);title('Channe 1 Input = Channe 1 Output');grid on;
+
+subplot(8,1,2);stairs([-length(cha2out)/2+1/2:length(cha2out)/2-1/2],cha2out);
+axis([-length(cha2out)/2 length(cha2out)/2 -2 2]);title('Channe 2 Input = Channe 2 Output');grid on;
+
+subplot(8,1,3);stairs([-length(cha3in)/2+1/2:length(cha3in)/2-1/2],cha3in);
+axis([-length(cha3in)/2 length(cha3in)/2 -2 2]);title('Channe 3 Input = Channe 3 Output');grid on;
+
+subplot(8,1,4);stairs([-length(cha4out)/2+1/2:length(cha4out)/2-1/2],cha4out);
+axis([-length(cha4out)/2 length(cha4out)/2 -2 2]);title('Channe 4 Input = Channe 4 Output');grid on;
+
+subplot(8,1,5);stairs([-length(cha5out)/2+1/2:length(cha5out)/2-1/2],cha5out);
+axis([-length(cha5out)/2 length(Parity)/2 -2 2]);title('ParityChanne 5 Input = Channe 5 Output');grid on;
+
+subplot(8,1,6);stairs([-length(cha6out)/2+1/2:length(cha6out)/2-1/2],cha6out);
+axis([-length(cha6out)/2 length(cha6out)/2 -2 2]);title('Channe 6 Input = Channe 6 Output');grid on;
+
+subplot(8,1,7);stairs([-length(cha7out)/2+1/2:length(cha7out)/2-1/2],cha7out);
+axis([-length(cha7out)/2 length(cha7out)/2 -2 2]);title('Parity');grid on;
+
+subplot(8,1,8);stairs([-length(Sereies)/2+1/2:length(Sereies)/2-1/2],Sereies);
+axis([-length(Sereies)/2 length(Sereies)/2 -2 2]);title('Sereies Carrier');grid on;
+
+%% Parallel to Series Optimum   O(n)
+
+function Output = Par2SerOpt(Input, row_len, column_len)
+    for column = 1:column_len
+        Output(1, (column-1)*row_len+1:column*row_len) = Input(1:row_len, column);
+    end
+end
+
+%% Series to Parallel Optimum   O(n)
+
+function Output = Ser2ParOpt(Input, out_len)
+    for row = 1:ceil(length(Input)/out_len)
+        Output(1:out_len, row) = Input(1, (row-1)*out_len+1:row*out_len);    
+    end
+end
+##### SOURCE END #####
+--></body></html>
