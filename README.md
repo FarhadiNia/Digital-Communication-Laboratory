@@ -1,5 +1,4 @@
 # Digital Communication Laboratory
-[![Build Status](https://api.travis-ci.org/FarhadiNia/Digital-Communication-Laboratory.svg?branch=master)](https://travis-ci.org/FarhadiNia/Digital-Communication-Laboratory)
 [![GitHub release](https://img.shields.io/github/release/FarhadiNia/Digital-Communication-Laboratory.svg)](https://github.com/FarhadiNia/Digital-Communication-Laboratory/releases/latest)
 
 ## Contributing to the docs and codes
