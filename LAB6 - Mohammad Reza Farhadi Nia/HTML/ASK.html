@@ -1,0 +1,200 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ASK</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-18"><meta name="DC.source" content="ASK.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Section A</a></li><li><a href="#3">Section B</a></li><li><a href="#4">Function</a></li></ul></div><pre class="codeinput"><span class="comment">%----------------------------------------------------------------------%</span>
+<span class="comment">%%----------------- Lab 6 - Digital Communication --------------------%%</span>
+ <span class="comment">%--------------- Supervisor: Dr.Shirvani Moghaddam --------------%</span>
+  <span class="comment">%------- Source by Mohammad Reza Farhadi Nia ----- Date:Nov 2020 --%</span>
+<span class="comment">%----------------------------------------------------------------------%</span>
+</pre><h2 id="2">Section A</h2><pre class="codeinput">pnSequence1 = comm.PNSequence(<span class="string">'Polynomial'</span>,[4 3 0], <span class="keyword">...</span>
+    <span class="string">'SamplesPerFrame'</span>,30,<span class="string">'InitialConditions'</span>,[0 0 0 1]);
+Binary_Random_Input = pnSequence1();
+[Binary_Random_Input(1:15) Binary_Random_Input(16:30)];
+t = (0:0.05:30*2*pi);
+NRZ_on_off = Binary_Random_Input';
+NRZ_Polar  = Binary_Random_Input';
+NRZ_on_off_Carrier = 0*t;
+NRZ_Polar_Carrier  = 0*t;
+
+    <span class="keyword">for</span> i = 1:length(Binary_Random_Input)
+        <span class="keyword">if</span> Binary_Random_Input(i) == 1
+            NRZ_Polar(i) = 1;
+        <span class="keyword">else</span>
+            NRZ_Polar(i) = -1;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="keyword">for</span> i = 1:length(t)
+        NRZ_on_off_Carrier(i) = NRZ_on_off(floor(t(i)/(2*pi))+1)*cos(t(i));
+    <span class="keyword">end</span>
+    <span class="keyword">for</span> j = 1:length(t)
+        NRZ_Polar_Carrier(j) = NRZ_Polar(floor(t(j)/(2*pi))+1)*cos(t(j));
+    <span class="keyword">end</span>
+
+figure
+
+subplot(5,1,1);stairs([-length(Binary_Random_Input)/2+1/2:length(Binary_Random_Input)/2-1/2],Binary_Random_Input,<span class="string">'k'</span>)
+axis([-length(Binary_Random_Input)/2 length(Binary_Random_Input)/2 -2 2]);title(<span class="string">'Input Binary code'</span>);grid <span class="string">on</span>; ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(5,1,2);stairs([-length(NRZ_on_off)/2:length(NRZ_on_off)/2-1],NRZ_on_off)
+axis([-length(NRZ_on_off)/2 length(NRZ_on_off)/2 -2 2]);title(<span class="string">'NRZ On-Off Binary code'</span>);grid <span class="string">on</span>; ylabel(<span class="string">'Amplitude'</span>);
+subplot(5,1,3);plot([-length(t)/2+1/2:length(t)/2-1/2],NRZ_on_off_Carrier);
+axis([-length(t)/2 length(t)/2 -2 2]);title(<span class="string">'NRZ On-Off with Carrier'</span>);grid <span class="string">on</span>; ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(5,1,4);stairs([-length(NRZ_Polar)/2:length(NRZ_Polar)/2-1],NRZ_Polar,<span class="string">'r'</span>)
+axis([-length(NRZ_Polar)/2 length(NRZ_Polar)/2 -2 2]);title(<span class="string">'NRZ Polar Binary code'</span>);grid <span class="string">on</span>; ylabel(<span class="string">'Amplitude'</span>);
+subplot(5,1,5);plot([-length(t)/2+1/2:length(t)/2-1/2],NRZ_Polar_Carrier,<span class="string">'r'</span>)
+axis([-length(t)/2 length(t)/2 -2 2]);title(<span class="string">'NRZ Polar with Carrier'</span>);grid <span class="string">on</span>; ylabel(<span class="string">'Amplitude'</span>);
+</pre><img vspace="5" hspace="5" src="ASK_01.png" alt=""> <h2 id="3">Section B</h2><pre class="codeinput">NRZ_on_off_Carrier_comp = 0*NRZ_on_off;
+NRZ_on_off_Carrier = abs(NRZ_on_off_Carrier);
+offset = 6;
+    <span class="keyword">for</span> k = 1:length(NRZ_on_off)
+       NRZ_on_off_Carrier_comp(k) = sum(NRZ_on_off_Carrier((k-1)*125+1:k*125))/(2*pi);
+    <span class="keyword">end</span>
+output_NRZ_on_off = Comparator(offset, NRZ_on_off_Carrier_comp)
+</pre><h2 id="4">Function</h2><pre class="codeinput"><span class="keyword">function</span> Output = Comparator(Offset, input)
+        Output = (input&gt;Offset); <span class="comment">% you can change equal to strictly</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+output_NRZ_on_off =
+
+  1&times;30 logical array
+
+  Columns 1 through 19
+
+   1   0   0   0   1   1   1   1   0   1   0   1   1   0   0   1   0   0   0
+
+  Columns 20 through 30
+
+   1   1   1   1   0   1   0   1   1   0   0
+
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%
+%%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Lab 6 - Digital Communication REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%%
+ %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Supervisor: Dr.Shirvani Moghaddam REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Source by Mohammad Reza Farhadi Nia REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Date:Nov 2020 REPLACE_WITH_DASH_DASH%
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%
+
+%% Section A
+
+pnSequence1 = comm.PNSequence('Polynomial',[4 3 0], ...
+    'SamplesPerFrame',30,'InitialConditions',[0 0 0 1]);
+Binary_Random_Input = pnSequence1();
+[Binary_Random_Input(1:15) Binary_Random_Input(16:30)];
+t = (0:0.05:30*2*pi);
+NRZ_on_off = Binary_Random_Input';
+NRZ_Polar  = Binary_Random_Input';
+NRZ_on_off_Carrier = 0*t;
+NRZ_Polar_Carrier  = 0*t;
+
+    for i = 1:length(Binary_Random_Input)
+        if Binary_Random_Input(i) == 1
+            NRZ_Polar(i) = 1;
+        else
+            NRZ_Polar(i) = -1;
+        end
+    end
+    
+    for i = 1:length(t)
+        NRZ_on_off_Carrier(i) = NRZ_on_off(floor(t(i)/(2*pi))+1)*cos(t(i));
+    end  
+    for j = 1:length(t)
+        NRZ_Polar_Carrier(j) = NRZ_Polar(floor(t(j)/(2*pi))+1)*cos(t(j));
+    end
+    
+figure
+
+subplot(5,1,1);stairs([-length(Binary_Random_Input)/2+1/2:length(Binary_Random_Input)/2-1/2],Binary_Random_Input,'k')
+axis([-length(Binary_Random_Input)/2 length(Binary_Random_Input)/2 -2 2]);title('Input Binary code');grid on; ylabel('Amplitude');
+
+subplot(5,1,2);stairs([-length(NRZ_on_off)/2:length(NRZ_on_off)/2-1],NRZ_on_off)
+axis([-length(NRZ_on_off)/2 length(NRZ_on_off)/2 -2 2]);title('NRZ On-Off Binary code');grid on; ylabel('Amplitude');
+subplot(5,1,3);plot([-length(t)/2+1/2:length(t)/2-1/2],NRZ_on_off_Carrier);
+axis([-length(t)/2 length(t)/2 -2 2]);title('NRZ On-Off with Carrier');grid on; ylabel('Amplitude');
+
+subplot(5,1,4);stairs([-length(NRZ_Polar)/2:length(NRZ_Polar)/2-1],NRZ_Polar,'r')
+axis([-length(NRZ_Polar)/2 length(NRZ_Polar)/2 -2 2]);title('NRZ Polar Binary code');grid on; ylabel('Amplitude');
+subplot(5,1,5);plot([-length(t)/2+1/2:length(t)/2-1/2],NRZ_Polar_Carrier,'r')
+axis([-length(t)/2 length(t)/2 -2 2]);title('NRZ Polar with Carrier');grid on; ylabel('Amplitude');
+
+%% Section B
+NRZ_on_off_Carrier_comp = 0*NRZ_on_off;
+NRZ_on_off_Carrier = abs(NRZ_on_off_Carrier);
+offset = 6;
+    for k = 1:length(NRZ_on_off)
+       NRZ_on_off_Carrier_comp(k) = sum(NRZ_on_off_Carrier((k-1)*125+1:k*125))/(2*pi);
+    end 
+output_NRZ_on_off = Comparator(offset, NRZ_on_off_Carrier_comp)
+
+%% Function
+function Output = Comparator(Offset, input)
+        Output = (input>Offset); % you can change equal to strictly
+end
+##### SOURCE END #####
+--></body></html>
