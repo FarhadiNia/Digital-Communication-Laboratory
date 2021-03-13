@@ -1,0 +1,355 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>SemiFinalExamSecond</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-24"><meta name="DC.source" content="SemiFinalExamSecond.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Section A</a></li><li><a href="#3">Section B</a></li><li><a href="#4">Section C</a></li><li><a href="#5">Function</a></li></ul></div><pre class="codeinput"><span class="comment">%----------------------------------------------------------------------%</span>
+<span class="comment">%%----------------- SemiExam2 - Digital Communication --------------------%%</span>
+ <span class="comment">%--------------- Supervisor: Dr.Shirvani Moghaddam --------------%</span>
+  <span class="comment">%------- Source by Mohammad Reza Farhadi Nia ----- Date:24 Dec 2020 --%</span>
+<span class="comment">%----------------------------------------------------------------------%</span>
+</pre><h2 id="2">Section A</h2><pre class="codeinput">pnSequence1 = comm.PNSequence(<span class="string">'Polynomial'</span>,[9 6 0], <span class="keyword">...</span>
+    <span class="string">'SamplesPerFrame'</span>,1022,<span class="string">'InitialConditions'</span>,[0 0 0 0 0 0 0 0 1]);
+Binary_Random_Input = pnSequence1();
+Binary_Input_test = [Binary_Random_Input(1:511) Binary_Random_Input(512:1022)];
+Binary_Random_Input = Binary_Random_Input(1:256)'
+
+NRZ_on_off = Binary_Random_Input;
+NRZ_Polar = Binary_Random_Input;
+
+    <span class="keyword">for</span> i = 1:length(Binary_Random_Input)
+        <span class="keyword">if</span> Binary_Random_Input(i) == 1
+            NRZ_Polar(i) = 5;
+        <span class="keyword">else</span>
+            NRZ_Polar(i) = -5;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+figure
+
+subplot(4,1,1);stairs([-length(Binary_Random_Input)/2+1:length(Binary_Random_Input)/2],Binary_Random_Input)
+axis([-length(Binary_Random_Input)/2 length(Binary_Random_Input)/2 -2 2]);title(<span class="string">'Input Binary code'</span>);grid <span class="string">on</span>; ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(4,1,2);stairs([-length(NRZ_Polar)/2+1:length(NRZ_Polar)/2],NRZ_Polar)
+axis([-length(NRZ_Polar)/2 length(NRZ_Polar)/2 -10 10]);title(<span class="string">'NRZ Polar Binary code'</span>);grid <span class="string">on</span>; ylabel(<span class="string">'Amplitude'</span>);
+</pre><pre class="codeoutput">
+Binary_Random_Input =
+
+  Columns 1 through 13
+
+     1     0     0     0     0     0     0     0     0     1     0     0     1
+
+  Columns 14 through 26
+
+     0     0     1     0     0     0     0     0     1     0     0     0     0
+
+  Columns 27 through 39
+
+     0     0     0     0     1     0     0     1     0     0     1     0     0
+
+  Columns 40 through 52
+
+     0     0     0     1     0     0     0     0     0     0     0     0     1
+
+  Columns 53 through 65
+
+     0     0     1     0     0     1     0     0     0     0     0     1     0
+
+  Columns 66 through 78
+
+     0     0     0     0     0     0     0     1     0     0     1     0     0
+
+  Columns 79 through 91
+
+     1     0     0     0     0     0     1     0     0     0     0     0     0
+
+  Columns 92 through 104
+
+     0     0     1     0     0     1     0     0     1     0     0     0     0
+
+  Columns 105 through 117
+
+     0     1     0     0     0     0     0     0     0     0     1     0     0
+
+  Columns 118 through 130
+
+     1     0     0     1     0     0     0     0     0     1     0     0     0
+
+  Columns 131 through 143
+
+     0     0     0     0     0     1     0     0     1     0     0     1     0
+
+  Columns 144 through 156
+
+     0     0     0     0     1     0     0     0     0     0     0     0     0
+
+  Columns 157 through 169
+
+     1     0     0     1     0     0     1     0     0     0     0     0     1
+
+  Columns 170 through 182
+
+     0     0     0     0     0     0     0     0     1     0     0     1     0
+
+  Columns 183 through 195
+
+     0     1     0     0     0     0     0     1     0     0     0     0     0
+
+  Columns 196 through 208
+
+     0     0     0     1     0     0     1     0     0     1     0     0     0
+
+  Columns 209 through 221
+
+     0     0     1     0     0     0     0     0     0     0     0     1     0
+
+  Columns 222 through 234
+
+     0     1     0     0     1     0     0     0     0     0     1     0     0
+
+  Columns 235 through 247
+
+     0     0     0     0     0     0     1     0     0     1     0     0     1
+
+  Columns 248 through 256
+
+     0     0     0     0     0     1     0     0     0
+
+</pre><img vspace="5" hspace="5" src="SemiFinalExamSecond_01.png" alt=""> <h2 id="3">Section B</h2><p>RZ duty = 0.25</p><pre class="codeinput">b = Binary_Random_Input; l=length(b); b(l+1)=0; n=1; duty = 0.25;
+Collect = [];
+
+<span class="keyword">while</span> n&lt;=l
+    t=(n-1):.001:n;
+    <span class="keyword">if</span> b(n)==1
+        y = 10*(t&lt;=n-(1-duty) &amp; t&gt;=(n-1))-5;
+        Collect = [Collect y];
+    <span class="keyword">elseif</span> b(n)==0
+        y = -10*(~(t&gt;=n-(1-duty) &amp; t&lt;=(n-1)))+5;
+        Collect = [Collect y];
+    <span class="keyword">else</span>
+        y=0;
+        Collect = [Collect y];
+    <span class="keyword">end</span>
+    subplot(4,1,3);plot(t,y)
+    hold <span class="string">on</span>; grid <span class="string">on</span>;
+    axis([0 length(b) -10 10]);
+    n=n+1;
+<span class="keyword">end</span>
+title(<span class="string">'RZ Polar duty = 0.25'</span>); xlabel(<span class="string">'Time'</span>); ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(4,1,4);stairs([-length(Collect)/2+1:length(Collect)/2],Collect)
+axis([-length(Collect)/2 length(Collect)/2 -10 10]);
+title(<span class="string">'RZ Polar duty = 0.25 Collected'</span>); xlabel(<span class="string">'Time'</span>); ylabel(<span class="string">'Amplitude'</span>);
+</pre><img vspace="5" hspace="5" src="SemiFinalExamSecond_02.png" alt=""> <h2 id="4">Section C</h2><pre class="codeinput">figure
+Binary_Random_Noise = randi([0 1],1,256);
+
+<span class="comment">% RZ nosie duty = 0.25</span>
+c = Binary_Random_Noise; l=length(c); c(l+1)=0; n=1; duty = 0.25;
+Noise = [];
+
+<span class="keyword">while</span> n&lt;=l
+    t=(n-1):.001:n;
+    <span class="keyword">if</span> c(n)==1
+        y = 6*(t&lt;n-(1-duty) &amp; t&gt;(n-1))-3;
+        Noise = [Noise y];
+    <span class="keyword">elseif</span> c(n)==0
+        y = -6*(~(t&gt;n-(1-duty) &amp; t&lt;(n-1)))+3;
+        Noise = [Noise y];
+    <span class="keyword">else</span>
+        y=0;
+        Noise = [Noise y];
+    <span class="keyword">end</span>
+    subplot(4,1,1);plot(t,y)
+    hold <span class="string">on</span>; grid <span class="string">on</span>;
+    axis([0 length(c) -10 10]);
+    n=n+1;
+<span class="keyword">end</span>
+title(<span class="string">'RZ Polar duty = 0.25 Noise'</span>); xlabel(<span class="string">'Time'</span>); ylabel(<span class="string">'Amplitude'</span>);
+
+Signal_and_Noise = Noise + Collect;
+subplot(4,1,2);stairs([-length(Signal_and_Noise)/2+1:length(Signal_and_Noise)/2],Signal_and_Noise)
+axis([-length(Signal_and_Noise)/2 length(Signal_and_Noise)/2 -10 10]);
+title(<span class="string">'RZ Polar duty = 0.25 Signal With Noise'</span>); xlabel(<span class="string">'Time'</span>); ylabel(<span class="string">'Amplitude'</span>);
+
+offset1 = 3;
+offset2 = -3;
+output_NRZ_on_off = Comparator(offset1,Signal_and_Noise');
+output_NRZ_Polar  = Comparator(offset2,Signal_and_Noise');
+</pre><pre class="codeoutput error">Undefined function 'Comparator' for input arguments of type 'double'.
+
+Error in SemiFinalExamSecond (line 96)
+output_NRZ_on_off = Comparator(offset1,Signal_and_Noise');
+</pre><h2 id="5">Function</h2><pre class="codeinput"><span class="comment">% % function Output = Comparator(Offset, input)</span>
+<span class="comment">% %         Output = (input&gt;Offset); % you can change equal to strictly</span>
+<span class="comment">% % end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%
+%%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- SemiExam2 - Digital Communication REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%%
+ %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Supervisor: Dr.Shirvani Moghaddam REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Source by Mohammad Reza Farhadi Nia REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- Date:24 Dec 2020 REPLACE_WITH_DASH_DASH%
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%
+
+%% Section A
+
+pnSequence1 = comm.PNSequence('Polynomial',[9 6 0], ...
+    'SamplesPerFrame',1022,'InitialConditions',[0 0 0 0 0 0 0 0 1]);
+Binary_Random_Input = pnSequence1();
+Binary_Input_test = [Binary_Random_Input(1:511) Binary_Random_Input(512:1022)];
+Binary_Random_Input = Binary_Random_Input(1:256)'
+
+NRZ_on_off = Binary_Random_Input;
+NRZ_Polar = Binary_Random_Input;
+
+    for i = 1:length(Binary_Random_Input)
+        if Binary_Random_Input(i) == 1
+            NRZ_Polar(i) = 5;
+        else
+            NRZ_Polar(i) = -5;
+        end
+    end
+
+figure
+
+subplot(4,1,1);stairs([-length(Binary_Random_Input)/2+1:length(Binary_Random_Input)/2],Binary_Random_Input)
+axis([-length(Binary_Random_Input)/2 length(Binary_Random_Input)/2 -2 2]);title('Input Binary code');grid on; ylabel('Amplitude');
+
+subplot(4,1,2);stairs([-length(NRZ_Polar)/2+1:length(NRZ_Polar)/2],NRZ_Polar)
+axis([-length(NRZ_Polar)/2 length(NRZ_Polar)/2 -10 10]);title('NRZ Polar Binary code');grid on; ylabel('Amplitude');
+
+%% Section B
+% RZ duty = 0.25
+b = Binary_Random_Input; l=length(b); b(l+1)=0; n=1; duty = 0.25;
+Collect = [];
+
+while n<=l
+    t=(n-1):.001:n;
+    if b(n)==1
+        y = 10*(t<=n-(1-duty) & t>=(n-1))-5;
+        Collect = [Collect y];
+    elseif b(n)==0
+        y = -10*(~(t>=n-(1-duty) & t<=(n-1)))+5;
+        Collect = [Collect y];
+    else
+        y=0;
+        Collect = [Collect y];
+    end
+    subplot(4,1,3);plot(t,y)
+    hold on; grid on;
+    axis([0 length(b) -10 10]);
+    n=n+1;
+end  
+title('RZ Polar duty = 0.25'); xlabel('Time'); ylabel('Amplitude');
+
+subplot(4,1,4);stairs([-length(Collect)/2+1:length(Collect)/2],Collect)
+axis([-length(Collect)/2 length(Collect)/2 -10 10]);
+title('RZ Polar duty = 0.25 Collected'); xlabel('Time'); ylabel('Amplitude');
+
+%% Section C
+figure
+Binary_Random_Noise = randi([0 1],1,256);
+
+% RZ nosie duty = 0.25
+c = Binary_Random_Noise; l=length(c); c(l+1)=0; n=1; duty = 0.25;
+Noise = [];
+
+while n<=l
+    t=(n-1):.001:n;
+    if c(n)==1
+        y = 6*(t<n-(1-duty) & t>(n-1))-3;
+        Noise = [Noise y];
+    elseif c(n)==0
+        y = -6*(~(t>n-(1-duty) & t<(n-1)))+3;
+        Noise = [Noise y];
+    else   
+        y=0;
+        Noise = [Noise y];
+    end
+    subplot(4,1,1);plot(t,y)
+    hold on; grid on;
+    axis([0 length(c) -10 10]);
+    n=n+1;
+end  
+title('RZ Polar duty = 0.25 Noise'); xlabel('Time'); ylabel('Amplitude');
+
+Signal_and_Noise = Noise + Collect;
+subplot(4,1,2);stairs([-length(Signal_and_Noise)/2+1:length(Signal_and_Noise)/2],Signal_and_Noise)
+axis([-length(Signal_and_Noise)/2 length(Signal_and_Noise)/2 -10 10]);
+title('RZ Polar duty = 0.25 Signal With Noise'); xlabel('Time'); ylabel('Amplitude');
+
+offset1 = 3;
+offset2 = -3;
+output_NRZ_on_off = Comparator(offset1,Signal_and_Noise');
+output_NRZ_Polar  = Comparator(offset2,Signal_and_Noise');
+
+%% Function
+
+% % function Output = Comparator(Offset, input)
+% %         Output = (input>Offset); % you can change equal to strictly
+% % end
+
+##### SOURCE END #####
+--></body></html>
