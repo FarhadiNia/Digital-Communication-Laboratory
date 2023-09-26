@@ -19,6 +19,6 @@ Contents:
 #### Thank you :)
 
 > I actualy used [Kubernetes website and documentation](https://github.com/SeMeKh/website/blob/master/README.md) for above help text!
-> I will glad if you send feedback -> mohammad_reza.farhadi_nia@yahoo.com ^__^
+> I will glad if you send feedback -> farhadinia0@gmail.com ^__^
 
 Copyright (c) Dec 2020 Mohammad Reza Farhadi Nia - Shahid Rajaei Teacher Training University, Tehran
